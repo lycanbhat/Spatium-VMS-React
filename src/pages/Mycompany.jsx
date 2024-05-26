@@ -11,5 +11,5 @@ export default function Mycompany() {
   useEffect(() => {
     getCompanies();
   }, []);
-  return <div>Mycompany</div>;
+  return <div>Mycompanys</div>;
 }
