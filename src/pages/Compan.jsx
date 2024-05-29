@@ -5,9 +5,7 @@ import arrow_down_icon from "../assets/images/icons/arrow-down.svg";
 
 import Modal from "../components/Modal";
 
-import API from "../Utils/API";
 import { makeApiCall } from "../Utils/api-funcs";
-import EditFacilityModal from "../components/FacilitiesComponents/EditFacilityModal";
 import CreateCompanyModal from "../components/CompanyCom/CreateCompany";
 import EditCompanyModal from "../components/CompanyCom/EditCompany";
 

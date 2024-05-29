@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../Modal";
-import CompanyForm from "./CompanyForm";
+import EmployeeForm from "./EmployeeForm";
 import { makeApiCall } from "../../Utils/api-funcs";
-import API from '../../Utils/API'
+import API from "../../Utils/API";
 
-const EditCompanyModal = ({ company, closeEditModal, fetchFacilities }) => {
+const EditEmployeeModal = ({ employee, closeEditModal, getCompanies, company_id }) => {
   async function imageUrlToFile(imageUrl) {
     try {
       const response = await fetch(imageUrl);
@@ -22,23 +22,34 @@ const EditCompanyModal = ({ company, closeEditModal, fetchFacilities }) => {
       throw error;
     }
   }
-  const [formData, setFormData] = useState({
-    
-  });
+  const [formData, setFormData] = useState({});
   useEffect(() => {
     const fillImage = async () => {
-      const logo = await imageUrlToFile(company.logo);
+      const logo = await imageUrlToFile(employee.profile_picture);
       setFormData((prv) => {
         return {
           ...prv,
-          name: company.name,
-          address: company.address,
-          spoc_name: company.spoc_name,
-          spoc_email: company.spoc_email,
-          spoc_phone_number: company.spoc_phone_number,
-          gstin: company.gstin,
-          facility: company.facility,
-          logo: logo,
+          id: employee.id,
+          phone_number: employee.phone_number,
+          role_id: employee.role_id,
+          company_id: employee.company_id,
+          facility_id: employee.facility_id,
+          // zone_id: employee.zone_id,
+          // password: employee.password,
+          // is_superuser: false,
+          email: employee.email,
+          first_name: employee.first_name,
+          last_name: employee.last_name,
+          is_archive: false,
+          profile_picture:logo,
+          // created_at: "2024-05-28T22:33:34.936930+05:30",
+          // modified_at: "2024-05-28T22:33:34.936961+05:30",
+          role: 5,
+          company: 28,
+          // facility: null,
+          // zone: null,
+          // groups: [],
+          // user_permissions: [],
         };
       });
     };
@@ -53,14 +64,11 @@ const EditCompanyModal = ({ company, closeEditModal, fetchFacilities }) => {
 
   const formCheck = () => {
     const newErrors = {};
-    if (!formData.name) newErrors.name = "Name is required!";
-    if (!formData.address) newErrors.address = "Address is required!";
-    if (!formData.spoc_name) newErrors.spoc_name = "Spoc name is required!";
-    if (!formData.spoc_email) newErrors.spoc_email = "Spoc email is required!";
-    if (!formData.spoc_phone_number)
-      newErrors.spoc_phone_number = "Spoc phone is required!";
-    if (!formData.gstin) newErrors.gstin = "GSTIN is required!";
-    if (!formData.facility) newErrors.facility = "Facility is required!";
+    if (!formData.first_name) newErrors.first_name = "First name is required!";
+    if (!formData.last_name) newErrors.last_name = "Last name is required!";
+    if (!formData.email) newErrors.email = "Email is required!";
+    // if (!formData.password) newErrors.password = "Password is required!";
+    if (!formData.profile_picture) newErrors.profile_picture = "Image is required!";;
     return newErrors;
   };
 
@@ -77,12 +85,12 @@ const EditCompanyModal = ({ company, closeEditModal, fetchFacilities }) => {
         //   `v1/admin/company/${company.id}/`,
         //   formData
         // );
-        await API.put(`v1/admin/company/${company.id}/`,formData,{
-            headers:{
-                "Content-Type":"multipart/form-data"
-            }
-        })
-        fetchFacilities(); // Fetch facilities after updating
+        await API.put(`v1/admin/employee/${employee.id}/?company_id=${company_id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        getCompanies(); // Fetch facilities after updating
         closeEditModal();
       } catch (error) {
         setErrors(error.response.data.errors);
@@ -92,15 +100,16 @@ const EditCompanyModal = ({ company, closeEditModal, fetchFacilities }) => {
 
   return (
     <Modal closeM={closeEditModal} title={"Edit Facility"}>
-      <CompanyForm
+      <EmployeeForm
         formData={formData}
         errors={errors}
         handleFormdata={handleFormdata}
         submitAction={updateFacility}
         closeAction={closeEditModal}
+        editFlag={true}
       />
     </Modal>
   );
 };
 
-export default EditCompanyModal;
+export default EditEmployeeModal;
