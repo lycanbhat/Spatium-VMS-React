@@ -74,6 +74,7 @@ const CreateEmployeeModal = ({
         handleFormdata={handleFormdata}
         submitAction={createEmployee}
         closeCreateModal={closeCreateModal}
+        closeAction={closeCreateModal}
       />
     </Modal>
   );

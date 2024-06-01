@@ -55,6 +55,7 @@ const CreateCompanyModal = ({ closeCreateModal, fetchFacilities }) => {
         handleFormdata={handleFormdata}
         submitAction={createFacility}
         closeCreateModal={closeCreateModal}
+        closeAction={closeCreateModal}
       />
     </Modal>
   );
