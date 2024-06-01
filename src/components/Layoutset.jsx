@@ -21,7 +21,6 @@ import Facilitie from "../pages/Facilitie";
 import Companies from "../pages/Companies";
 import Facilities from "../pages/Facil";
 import Fac from "../pages/Fac";
-import Compan from "../pages/Compan";
 import Visitors from "../pages/Visitors";
 import Mycompany from "../pages/Mycompany";
 
@@ -129,7 +128,7 @@ export default function Layoutset() {
                     path="/companies"
                     element={
                       <AuthMiddleware>
-                        <Compan />
+                        <Companies />
                       </AuthMiddleware>
                     }
                   ></Route>
@@ -172,7 +171,16 @@ export default function Layoutset() {
                     }
                   ></Route>
                 </Routes>
-              ) : null}
+              ) : <Routes>
+              <Route
+                path="/"
+                element={
+                  <AuthMiddleware>
+                    <RedirectToVisitors />
+                  </AuthMiddleware>
+                }
+              ></Route>
+              </Routes>}
             </div>
           </div>
         </>

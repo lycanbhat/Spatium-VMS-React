@@ -12,7 +12,7 @@ export default function Mycompany() {
   const { tokens } = useSelector((state) => state.auth);
   const [createTrigger, setCreateTrigger] = useState(false);
 
-  const [pageTitle, setPageTitle] = useState("My Company");
+  const [pageTitle, setPageTitle] = useState(tokens?.company_name?tokens?.company_name:"My company");
   const [tableHeaders, setTableHeaders] = useState([
     // { label: "ID", key: "username" },
     { label: "First name" },
@@ -148,11 +148,14 @@ const TRow = ({ data, getCompanies, company_id }) => {
         </td> */}
         <td className="pl-2">
           <div className="flex gap-1 items-center">
+            {
+              data.profile_picture && 
             <img
               src={data.profile_picture}
               className="w-8 rounded-full object-cover aspect-square"
               alt=""
             />
+            }
             {data.first_name}
           </div>
         </td>

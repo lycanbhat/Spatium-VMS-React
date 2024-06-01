@@ -13,39 +13,16 @@ const EmployeeForm = ({
   closeAction,
   editFlag,
 }) => {
-  // debugger
-  const [facilities, setFacilities] = useState([]);
-  const [preview_img, setpreview_img] = useState(null);
-  // const removeImage = () => {
-  //   setpreview_img(null);
-  //   setFormdata({
-  //     ...formdata,
-  //     image: null,
-  //   });
-  //   // Clear the file input value
-  //   if (fileref.current) {
-  //     fileref.current.value = null;
+  
+  // useEffect(() => {
+  //   if (formData?.profile_picture) {
+  //     setpreview_img(URL.createObjectURL(formData.profile_picture));
   //   }
-  // };
-  useEffect(() => {
-    // const getFacilities = async () => {
-    //   const { data } = await makeApiCall(
-    //     "GET",
-    //     "v1/admin/facility/?page_size=500"
-    //   );
-    //   setFacilities(data?.results);
-    // };
-    // getFacilities();
-  }, []);
-  useEffect(() => {
-    if (formData?.profile_picture) {
-      setpreview_img(URL.createObjectURL(formData.profile_picture));
-    }
-  }, [formData]);
+  // }, [formData]);
   return (
     <form
       onSubmit={submitAction}
-      className="w-[60vw] lg:w-[50vw] 2xl:w-[40vw] px-5 py-2 h-[80vh] overflow-auto"
+      className="w-[60vw] lg:w-[50vw] 2xl:w-[40vw] px-5 py-2 max-h-[80vh] overflow-auto"
     >
       <div className="w-full flex flex-col gap-2">
         <div className="mt-2 flex flex-col">
@@ -116,28 +93,9 @@ const EmployeeForm = ({
           <p className="text-xs text-red-500">{errors.phone_number}</p>
         </div>
       </div>
-      {!editFlag && (
-        <div className="w-full flex flex-col gap-2">
-          <div className="mt-2 flex flex-col">
-            <label
-              htmlFor="password"
-              className="text-sm text-dark-400 font-medium"
-            >
-              Password
-            </label>
-            <input
-              type="text"
-              id="password"
-              value={formData.password || ""}
-              onChange={(e) => handleFormdata("password", e.target.value)}
-              className="mt-2 px-2 border border-[#E0E0E0] outline-dark-500 rounded-md h-10"
-            />
-            <p className="text-xs text-red-500">{errors.password}</p>
-          </div>
-        </div>
-      )}
+      
 
-      <div className="mt-2 flex flex-col">
+      {/* <div className="mt-2 flex flex-col">
         <div className="flex gap-1">
           <label htmlFor="" className="text-sm text-dark-400 font-medium">
             Photo upload
@@ -180,8 +138,8 @@ const EmployeeForm = ({
           id="member_img_add"
           accept="images/.jpeg,.jpg,.png"
         />
-      </div>
-      <div className="relative pt-3 px-6 border-t border-[#EFEFEF] flex justify-end items-center h-10 gap-2">
+      </div> */}
+      <div className="relative pt-3 px-6  flex justify-end items-center h-10 gap-2">
         <button
           type="submit"
           className="h-8 bg-primary-500 text-sm flex items-center gap-2 px-3 rounded-md text-white border border-transparent"

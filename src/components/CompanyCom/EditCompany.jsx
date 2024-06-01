@@ -71,12 +71,6 @@ const EditCompanyModal = ({ company, closeEditModal, fetchFacilities }) => {
       setErrors(newErrors);
     } else {
       try {
-        // Implement the API call to update the facility
-        // const { status } = await makeApiCall(
-        //   "PUT",
-        //   `v1/admin/company/${company.id}/`,
-        //   formData
-        // );
         await API.put(`v1/admin/company/${company.id}/`,formData,{
             headers:{
                 "Content-Type":"multipart/form-data"
@@ -85,7 +79,7 @@ const EditCompanyModal = ({ company, closeEditModal, fetchFacilities }) => {
         fetchFacilities(); // Fetch facilities after updating
         closeEditModal();
       } catch (error) {
-        setErrors(error.response.data.errors);
+        setErrors(error.response.data);
       }
     }
   };

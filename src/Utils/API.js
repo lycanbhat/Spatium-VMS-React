@@ -5,7 +5,7 @@ import { refreshToken, logout } from '../redux/auth';
 
 // Create an axios instance
 const instance = axios.create({
-  baseURL: 'http://13.200.215.140/api/',
+  baseURL: 'https://api.spatiumoffices.com/api/',
   headers: {
     "Content-Type": "application/json"
   },

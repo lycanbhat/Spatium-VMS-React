@@ -99,7 +99,7 @@ const EditEmployeeModal = ({ employee, closeEditModal, getCompanies, company_id 
   };
 
   return (
-    <Modal closeM={closeEditModal} title={"Edit Facility"}>
+    <Modal closeM={closeEditModal} title={"Edit employee"}>
       <EmployeeForm
         formData={formData}
         errors={errors}

@@ -15,17 +15,7 @@ const CompanyForm = ({
 }) => {
   const [facilities, setFacilities] = useState([]);
   const [preview_img,setpreview_img] = useState(null)
-  // const removeImage = () => {
-  //   setpreview_img(null);
-  //   setFormdata({
-  //     ...formdata,
-  //     image: null,
-  //   });
-  //   // Clear the file input value
-  //   if (fileref.current) {
-  //     fileref.current.value = null;
-  //   }
-  // };
+  
   useEffect(() => {
     const getFacilities = async () => {
       const { data } = await makeApiCall(

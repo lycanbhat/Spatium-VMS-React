@@ -64,7 +64,7 @@ export default function Sidebar() {
 
   const spocSidebar = [
     {
-      name: "My Company",
+      name: tokens?.company_name?tokens?.company_name:"My company",
       path: "/mycompany/",
       icon: analytics_ico,
       active: analytics_active_ico,

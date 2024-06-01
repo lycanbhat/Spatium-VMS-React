@@ -26,8 +26,8 @@ const CreateEmployeeModal = ({
     if (!formData.first_name) newErrors.first_name = "First name is required!";
     if (!formData.last_name) newErrors.last_name = "Last name is required!";
     if (!formData.email) newErrors.email = "Email is required!";
-    if (!formData.password) newErrors.password = "Password is required!";
-    if (!formData.profile_picture) newErrors.profile_picture = "Image is required!";
+    if (!formData.phone_number) newErrors.phone_number = "Phone number is required!";
+    // if (!formData.profile_picture) newErrors.profile_picture = "Image is required!";
 
     return newErrors;
   };
@@ -60,13 +60,14 @@ const CreateEmployeeModal = ({
           closeCreateModal();
         }
       } catch (error) {
-        setErrors(error.response.data.errors);
+        console.log({});
+        setErrors(error.response.data);
       }
     }
   };
 
   return (
-    <Modal closeM={closeCreateModal} title={"Add new company"}>
+    <Modal closeM={closeCreateModal} title={"Add new employee"}>
       <EmployeeForm
         formData={formData}
         errors={errors}
