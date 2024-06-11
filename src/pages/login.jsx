@@ -15,7 +15,8 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const handleRequestOtp = async () => {
+  const handleRequestOtp = async (e) => {
+    e.preventDefault()
     // Here you would make the OTP request call
     // After the call, set showOtp to true to show the OTP input field
     if (!showOtp) {
@@ -58,7 +59,7 @@ const Login = () => {
             Sign in to your account
           </h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6" onSubmit={handleRequestOtp} method="POST">
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>

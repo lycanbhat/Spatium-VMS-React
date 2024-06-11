@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import add_icon from "../assets/images/icons/ic_fluent_add_white.svg";
+import upload_icon from "../assets/images/icons/upload_w.svg";
 import dots_icon from "../assets/images/icons/ic_fluent_more_vertical_24_filled.svg";
 import arrow_down_icon from "../assets/images/icons/arrow-down.svg";
 import { makeApiCall } from "../Utils/api-funcs";
@@ -7,12 +8,18 @@ import { useSelector } from "react-redux";
 import CreateEmployeeModal from "../components/EmployeeCom/CreateEmployee";
 import EditEmployeeModal from "../components/EmployeeCom/EditEmployeeForm";
 import Modal from "../components/Modal";
+import BulkUpload from "../components/MyComComponents/BulkUpload";
+// import { upload_icon } from "../assets/images/icons";
 
 export default function Mycompany() {
   const { tokens } = useSelector((state) => state.auth);
   const [createTrigger, setCreateTrigger] = useState(false);
 
-  const [pageTitle, setPageTitle] = useState(tokens?.company_name?tokens?.company_name:"My company");
+  const [bulkUpTrigger,setBulkUpTrigger] = useState(false)
+
+  const [pageTitle, setPageTitle] = useState(
+    tokens?.company_name ? tokens?.company_name : "My company"
+  );
   const [tableHeaders, setTableHeaders] = useState([
     // { label: "ID", key: "username" },
     { label: "First name" },
@@ -44,6 +51,13 @@ export default function Mycompany() {
     setCreateTrigger(false);
   };
 
+  const openBulkModal = () => {
+    setBulkUpTrigger(true)
+  }
+  const closeBulkModal = () => {
+    setBulkUpTrigger(false)
+  }
+
   const loadMore = async () => {
     // Load more logic
     if (nextpage) {
@@ -56,17 +70,28 @@ export default function Mycompany() {
   useEffect(() => {
     getCompanies();
   }, []);
+
+
   return (
     <div className="text-dark-400">
       <header className="flex items-center justify-between">
         <h2 className="font-semibold text-2xl">{pageTitle}</h2>
-        <button
-          onClick={openCreateModal}
+        <div className="flex gap-2">
+          <button
           className="h-8 bg-primary-500 text-sm flex items-center gap-2 px-3 rounded-md text-white"
-        >
-          <img className="w-3" src={add_icon} alt="" />
-          Add new employee
-        </button>
+          onClick={openBulkModal}
+          >
+            <img src={upload_icon} className="w-3 text-white" alt="upload" />
+            Bulk Upload
+          </button>
+          <button
+            onClick={openCreateModal}
+            className="h-8 bg-primary-500 text-sm flex items-center gap-2 px-3 rounded-md text-white"
+          >
+            <img className="w-3" src={add_icon} alt="" />
+            Add new employee
+          </button>
+        </div>
       </header>
 
       <div className="bg-white mt-6 rounded-lg">
@@ -84,7 +109,13 @@ export default function Mycompany() {
             {/* Table rows */}
             {data_.length ? (
               data_.map((r, i) => {
-                return <TRow company_id={tokens.company_id} data={r} getCompanies={getCompanies} />;
+                return (
+                  <TRow
+                    company_id={tokens.company_id}
+                    data={r}
+                    getCompanies={getCompanies}
+                  />
+                );
               })
             ) : (
               <tr>
@@ -116,6 +147,10 @@ export default function Mycompany() {
           company_id={tokens.company_id}
         />
       )}
+      {
+        bulkUpTrigger && 
+        <BulkUpload getCompanies={getCompanies} closeBulkModal={closeBulkModal}/>
+      }
     </div>
   );
 }
@@ -131,7 +166,10 @@ const TRow = ({ data, getCompanies, company_id }) => {
 
   const deleteFac = async () => {
     try {
-      await makeApiCall("DELETE", `v1/admin/employee/${data.id}/?company_id=${company_id}`);
+      await makeApiCall(
+        "DELETE",
+        `v1/admin/employee/${data.id}/?company_id=${company_id}`
+      );
       getCompanies();
       closeDelete();
     } catch (error) {
@@ -141,21 +179,16 @@ const TRow = ({ data, getCompanies, company_id }) => {
   return (
     <>
       <tr className="border-t border-b border-dark-200 h-10 mx-1 hover:bg-light-500">
-        {/* <td className="pl-2">
-          <div className="flex text-sm gap-2 items-center">
-            <p className=" text-primary-500">{data.id}</p>
-          </div>
-        </td> */}
-        <td className="pl-2">
+        
+        <td className={`pl-2 ${data.role_id == 4?"border-l-2 border-primary-500":''}`}>
           <div className="flex gap-1 items-center">
-            {
-              data.profile_picture && 
-            <img
-              src={data.profile_picture}
-              className="w-8 rounded-full object-cover aspect-square"
-              alt=""
-            />
-            }
+            {data.profile_picture && (
+              <img
+                src={data.profile_picture}
+                className="w-8 rounded-full object-cover aspect-square"
+                alt=""
+              />
+            )}
             {data.first_name}
           </div>
         </td>
@@ -163,12 +196,14 @@ const TRow = ({ data, getCompanies, company_id }) => {
         <td className="pl-2">{data.email}</td>
         <td className="pl-2">{data.phone_number}</td>
         <td className="relative">
-          <div
-            onClick={() => setOptionTrigger((prv) => !prv)}
-            className="cursor-pointer w-6 h-6 bg-primary-100 flex justify-center items-center rounded-md"
-          >
-            <img src={dots_icon} alt="" />
-          </div>
+          {data.role_id != 4 ? (
+            <div
+              onClick={() => setOptionTrigger((prv) => !prv)}
+              className="cursor-pointer w-6 h-6 bg-primary-100 flex justify-center items-center rounded-md"
+            >
+              <img src={dots_icon} alt="" />
+            </div>
+          ) : null}
           {optionTrigger ? (
             <div className="absolute z-10 right-8 top-8 py-4 px-3 bg-white shadow-[0_3px_6px_#0000001F] w-36">
               <div className="cursor-pointer" onClick={openEdit}>
@@ -202,6 +237,7 @@ const TRow = ({ data, getCompanies, company_id }) => {
           </div>
         </Modal>
       )}
+      
     </>
   );
 };

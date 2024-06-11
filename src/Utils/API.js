@@ -29,7 +29,9 @@ instance.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    // debugger
+    Promise.reject(error)}
 );
 
 // Interceptor for handling 401 errors
@@ -49,6 +51,7 @@ instance.interceptors.response.use(
       } catch (refreshError) {
         console.error('Failed to refresh token:', refreshError);
         store.dispatch(logout());
+        window.history.pushState('/')
         return Promise.reject(refreshError);
       }
     }
