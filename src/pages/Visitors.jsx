@@ -6,12 +6,14 @@ import arrow_down_icon from "../assets/images/icons/arrow-down.svg";
 import Modal from "../components/Modal";
 
 import API from "../Utils/API";
+import { useSelector } from "react-redux";
 import { makeApiCall } from "../Utils/api-funcs";
 import CreateFacilityModal from "../components/FacilitiesComponents/CreateFacilityModal";
 import EditFacilityModal from "../components/FacilitiesComponents/EditFacilityModal";
 
 export default function Visitors() {
   const [createTrigger, setCreateTrigger] = useState(false);
+  const { tokens } = useSelector((state) => state.auth);
 
   const [pageTitle, setPageTitle] = useState("Visitors");
   const [tableHeaders, setTableHeaders] = useState([
@@ -37,6 +39,20 @@ export default function Visitors() {
     setNextpage(data.next);
   };
 
+  const fetchvisitorById = async () => {
+    const { data } = await makeApiCall("GET", `v1/admin/company-visitor/?company_id=${tokens.company_id}`);
+    setData_(data.results);
+    setNextpage(data.next);
+  }
+
+  const fetchVisitor= async () => {
+    if(tokens.is_superuser){
+      fetchFacilities();
+    } else {
+      fetchvisitorById();
+    }
+  }
+
   const openCreateModal = () => {
     setCreateTrigger(true);
   };
@@ -55,7 +71,7 @@ export default function Visitors() {
   };
 
   useEffect(() => {
-    fetchFacilities();
+   fetchVisitor();
   }, []);
 
   return (
@@ -126,6 +142,7 @@ const TRow = ({ data, fetchFacilities }) => {
   const openDetail = () => setDetailTrigger(true);
   const closeDetail = () => setDetailTrigger(false);
   const [date_,setDate] = useState('')
+  const { tokens } = useSelector((state) => state.auth);
   function convertDate(dateString) {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: true };
     const date = new Date(dateString);
@@ -147,6 +164,7 @@ const TRow = ({ data, fetchFacilities }) => {
         <td className="pl-2 text-primary-500 font-semibold cursor-pointer" onClick={openDetail}>
           {data.name}
         </td>
+        {/* {tokens.is_superuser && <td className="pl-2">{data.company_name}</td>} */}
         <td className="pl-2">{data.company_name}</td>
         <td className="pl-2">{data.from_company ? data.from_company : "-"}</td>
         <td className="pl-2">{data.purpose_of_visit_name}</td>

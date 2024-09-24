@@ -69,6 +69,12 @@ export default function Sidebar() {
       icon: analytics_ico,
       active: analytics_active_ico,
     },
+     {
+      name: "Visitors",
+      path: "/visitors/",
+      icon: analytics_ico,
+      active: analytics_active_ico,
+    },
   ]
   return (
     <div className=" shadow-[4px_0_10px_#79797908] shadow-[#79797908] h-full bg-white w-full relative">

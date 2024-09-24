@@ -170,6 +170,14 @@ export default function Layoutset() {
                       </AuthMiddleware>
                     }
                   ></Route>
+                   <Route
+                    path="/visitors"
+                    element={
+                      <AuthMiddleware>
+                        <Visitors />
+                      </AuthMiddleware>
+                    }
+                  ></Route>
                 </Routes>
               ) : <Routes>
               <Route
