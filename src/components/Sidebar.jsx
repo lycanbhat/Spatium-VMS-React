@@ -2,25 +2,18 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
-import analytics_ico from "../assets/images/icons/ic_fluent_board_split_24_regular.svg";
-import analytics_active_ico from "../assets/images/icons/Group 64280.svg";
+import analytics_ico from "../assets/images/icons/building.svg";
+import analytics_active_ico from "../assets/images/icons/building-active.svg";
 
-import members_ico from "../assets/images/icons/ic_fluent_premium_person_24_regular-1.svg";
-import members_active_ico from "../assets/images/icons/Group 64302.svg";
+import visitor_ico from "../assets/images/icons/visitors.svg";
+import visitor_active_ico from "../assets/images/icons/visitors-active.svg";
 
-import guests_ico from "../assets/images/icons/ic_fluent_person_swap_24_regular.svg";
-import guests_active_ico from "../assets/images/icons/ic_fluent_person_swap_24_filled.svg";
+import company_ico from "../assets/images/icons/company.svg";
+import company_active_ico from "../assets/images/icons/company-active.svg";
 
-import employee_ico from "../assets/images/icons/ic_fluent_person_accounts_24_regular.svg";
-import employee_active_ico from "../assets/images/icons/Group 64429.svg";
+import location_ico from "../assets/images/icons/location.svg";
+import location_active_ico from "../assets/images/icons/location-active.svg";
 
-import notification_ico from "../assets/images/icons/ic_fluent_alert_24_regular.svg";
-import notification_active_ico from "../assets/images/icons/Group 64351.svg";
-
-import configuration_ico from "../assets/images/icons/ic_fluent_settings_24_regular.svg";
-
-import vehicleParking_active_ico from "../assets/images/icons/parking_active.svg";
-import vehicleParking_inactive_ico from "../assets/images/icons/parking_inactive.svg";
 
 
 export default function Sidebar() {
@@ -38,14 +31,14 @@ export default function Sidebar() {
     {
       name: "Visitors",
       path: "/visitors/",
-      icon: analytics_ico,
-      active: analytics_active_ico,
+      icon: visitor_ico,
+      active: visitor_active_ico,
     },
     {
       name: "Location Meta data",
       path: "/location-meta/",
-      icon: analytics_ico,
-      active: analytics_active_ico,
+      icon: location_ico,
+      active: location_active_ico,
     },
 
     {
@@ -57,8 +50,8 @@ export default function Sidebar() {
     {
       name: "Companies ",
       path: "/companies/",
-      icon: analytics_ico,
-      active: analytics_active_ico,
+      icon: company_ico,
+      active: company_active_ico,
     },
   ];
 
@@ -66,14 +59,14 @@ export default function Sidebar() {
     {
       name: tokens?.company_name?tokens?.company_name:"My company",
       path: "/mycompany/",
-      icon: analytics_ico,
-      active: analytics_active_ico,
+      icon: company_ico,
+      active: company_active_ico,
     },
      {
       name: "Visitors",
       path: "/visitors/",
-      icon: analytics_ico,
-      active: analytics_active_ico,
+      icon: visitor_ico,
+      active: visitor_active_ico,
     },
   ]
   return (
@@ -94,7 +87,7 @@ export default function Sidebar() {
               <div className="flex items-center gap-5 box-border">
                 <div className="">
                   <img
-                    className="w-4 h-4 min-[1rem]"
+                    className="w-5 h-5 min-[1rem]"
                     src={location.pathname == e.path ? e.active : e.icon}
                     alt=""
                   />

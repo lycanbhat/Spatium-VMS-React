@@ -190,46 +190,47 @@ const TRow = ({ data, fetchFacilities }) => {
       </tr>
       {detailTrigger && (
         <Modal title={"Visitor detail"} closeM={closeDetail}>
-          <div className="w-[30rem] px-8">
-            <div>
-              <img className="h-24 object-contain" src={data.image} alt="" />
-            </div>
-            <div className="flex gap-2">
-              <div className="w-[10rem]">Name</div>
-              <div>{data.name}</div>
-            </div>
-            <div className="flex gap-2">
-              <div className="w-[10rem]">Email</div>
-              <div className="">
-                <p className="text-wrap">{data.email}</p>
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <div className="w-[10rem]">Phone</div>
-              <div>{data.phone_number}</div>
-            </div>
-            <div className="flex gap-2">
-              <div className="w-[10rem]">Company coming from</div>
-              {/* <div>{data.company_name}</div> */}
-              <div>{data.from_company?data.from_company:'-'}</div>
-            </div>
-            <div className="flex gap-2">
-              <div className="w-[10rem]">Visiting company</div>
-              <div>{data.company_name}  </div>
-            </div>
-            <div className="flex gap-2">
-              <div className="w-[10rem]">Visiting contact</div>
-              <div>{data.user_name}</div>
-            </div>
-            <div className="flex gap-2">
-              <div className="w-[10rem]">Purpose of visit</div>
-              <div>{data.purpose_of_visit_name}</div>
-            </div>
-            <div className="flex gap-2">
-              <div className="w-[10rem]">Date and time</div>
-              <div>{convertDate(data.created_at)}</div>
-            </div>
-          </div>
+           <div className="w-[30rem] px-8">
+        <div className="mb-6 flex ">
+          <img className="h-32 w-32 object-cover rounded-md" src={data.image} alt="Visitor" />
+        </div>
+        <table className="w-full border-collapse border border-gray-300">
+          <tbody>
+            <tr>
+              <td className="w-1/3 py-2 px-3 font-semibold border border-gray-300">Name</td>
+              <td className="py-2 px-3 border border-gray-300">{data.name}</td>
+            </tr>
+            <tr>
+              <td className="w-1/3 py-2 px-3 font-semibold border border-gray-300">Email</td>
+              <td className="py-2 px-3 break-words border border-gray-300">{data.email}</td>
+            </tr>
+            <tr>
+              <td className="w-1/3 py-2 px-3 font-semibold border border-gray-300">Phone</td>
+              <td className="py-2 px-3 border border-gray-300">{data.phone_number}</td>
+            </tr>
+            <tr>
+              <td className="w-1/3 py-2 px-3 font-semibold border border-gray-300">Company coming from</td>
+              <td className="py-2 px-3 border border-gray-300">{data.from_company ? data.from_company : '-'}</td>
+            </tr>
+            <tr>
+              <td className="w-1/3 py-2 px-3 font-semibold border border-gray-300">Visiting company</td>
+              <td className="py-2 px-3 border border-gray-300">{data.company_name}</td>
+            </tr>
+            <tr>
+              <td className="w-1/3 py-2 px-3 font-semibold border border-gray-300">Visiting contact</td>
+              <td className="py-2 px-3 border border-gray-300">{data.user_name}</td>
+            </tr>
+            <tr>
+              <td className="w-1/3 py-2 px-3 font-semibold border border-gray-300">Purpose of visit</td>
+              <td className="py-2 px-3 border border-gray-300">{data.purpose_of_visit_name}</td>
+            </tr>
+            <tr>
+              <td className="w-1/3 py-2 px-3 font-semibold border border-gray-300">Date and time</td>
+              <td className="py-2 px-3 border border-gray-300">{convertDate(data.created_at)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
         </Modal>
       )}
     </>
