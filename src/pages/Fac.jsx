@@ -37,6 +37,8 @@ export default function Fac() {
       "v1/admin/facility/?page_size=10"
     );
     setData_(data.results);
+    console.log(data.results);
+    
     setNextpage(data.next);
   };
 

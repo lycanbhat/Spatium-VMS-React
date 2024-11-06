@@ -75,7 +75,7 @@ function Facilitie({ addOn }) {
       "GET",
       "v1/admin/facility/?page_size=10"
     );
-    console.log({ data });
+    console.log("dddd",{ data });
     setData(data);
   };
   const handleEdit = async(id) =>{
@@ -90,7 +90,7 @@ function Facilitie({ addOn }) {
   const data_ = [
     { id:1,Name: 'Nimit Handa', Email: 'aryashbhatt@metaverse.com', 'Membership No.': '774598', 'Member since': '10-01-1949' },
     { id:3,Name: 'Girish Prabhu', Email: 'mody.ehsaan@yahoo.com', 'Membership No.': '730891', 'Member since': '21-06-1987' },
-    {id:3, Name: 'Jagruthi Ramachandran', Email: 'gurbani.moitram@company.com', 'Membership No.': '797463', 'Member since': '01-06-1941' },
+    { id:3, Name: 'Jagruthi Ramachandran', Email: 'gurbani.moitram@company.com', 'Membership No.': '797463', 'Member since': '01-06-1941' },
     { id:3,Name: 'Liza Bath', Email: 'advikkelkar@symbol.com', 'Membership No.': '176213', 'Member since': '18-12-1994' },
     { id:3,Name: 'Samar Jain', Email: 'sueveerpujar@century.org', 'Membership No.': '370093', 'Member since': '31-07-1985' },
   ];

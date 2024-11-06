@@ -15,8 +15,9 @@ export default function Companies() {
   const [pageTitle, setPageTitle] = useState("Companies");
   const [tableHeaders, setTableHeaders] = useState([
     { label: "Name", key: "email" },
+    { label: "Facility", key: "memberSince" },
     { label: "Spoc Name", key: "memberSince" },
-    { label: "SPoc Email", key: "memberSince" },
+    { label: "Employee Count", key: "memberSince" },
     { label: "", key: "actions" },
   ]);
 
@@ -32,6 +33,8 @@ export default function Companies() {
     // Fetch logic
     const { data } = await makeApiCall("GET", "v1/admin/company/?page_size=10");
     setData_(data.results);
+    console.log("fffff",data.results);
+    
     setNextpage(data.next);
   };
 
@@ -146,8 +149,9 @@ const TRow = ({ data, fetchFacilities }) => {
           </div>
         </td> */}
         <td className="pl-2">{data.name}</td>
+        <td className="pl-2">{data.facility_name}</td>
         <td className="pl-2">{data.spoc_name}</td>
-        <td className="pl-2">{data.spoc_email}</td>
+        <td className="pl-2">{data.employee_count}</td>
         <td className="relative">
           <div
             onClick={() => setOptionTrigger((prv) => !prv)}

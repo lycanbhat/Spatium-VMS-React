@@ -68,6 +68,12 @@ export default function Sidebar() {
       icon: visitor_ico,
       active: visitor_active_ico,
     },
+    {
+      name: "Pre Invite Guest",
+      path: "/pre-visitor/",
+      icon: visitor_ico,
+      active: visitor_active_ico,
+    },
   ]
   return (
     <div className=" shadow-[4px_0_10px_#79797908] shadow-[#79797908] h-full bg-white w-full relative">
